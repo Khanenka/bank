@@ -5,13 +5,16 @@ import java.io.BufferedReader;
 import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import static acc.Account.scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException, SQLException {
         //create users table
 //        User.createTableUsers();
 
@@ -23,8 +26,8 @@ public class Main {
 
         //create accounts table
 //        Account.createTableAccounts();
-
-
+//
+//
 //        Account.insertAccountsTable();
 
 
@@ -32,24 +35,27 @@ public class Main {
 //        Transaction.insertTransactionTable();
 
 
+        BigDecimal bigDecimal1 = new BigDecimal(100);
+        BigDecimal bigDecimal2 = new BigDecimal(200);
+        System.out.println(bigDecimal1.compareTo(bigDecimal2));
+
         BankService bankService = new BankService();
-        System.out.println(bankService.searchAccByNumberCard());
-
-//
-//        System.out.println("Введите pin: ");
-//
-//        System.out.println("инфо по карте");
-//
-//
-//        int pin = scanner.nextInt();
-//        System.out.println("pin="+pin);
-//        System.out.println("Выбирите транзакцию :");
-//        System.out.println("Введите сумму :");
-//        System.out.println("Печатать чек");
-//        System.out.println("Вы хотите продолжить");
 
 
 
+
+
+//
+//           bankService.searchAccByNumberAndPinCard();
+
+
+
+
+
+
+
+        bankService.firstService();
+//        System.out.println(bankService.getIdAccounts());
 
 
     }
