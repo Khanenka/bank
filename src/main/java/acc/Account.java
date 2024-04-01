@@ -90,7 +90,6 @@ public class Account {
         Account account=new Account();
         BigDecimal balance = null;
         int bankId = 0;
-
          String sqlAccByPin = "SELECT * FROM accounts where AccountNumber = " + accountNumber + " AND PinCode = " + pinCode;
         PreparedStatement preparedStatement = conn.prepareStatement(sqlAccByPin);
         resultSet = preparedStatement.executeQuery();
@@ -103,9 +102,6 @@ public class Account {
         account.setAccountNumber(acc);
         account.setPinCode(pin);
         account.setBalance(balance);
-//            arrayList.setBankName(bankId);
-        System.out.println(Arrays.asList(account));
-
         return account;
     }
     public BigDecimal accountsBalance(Integer accountNumber, Integer pinCode) throws SQLException {
@@ -118,11 +114,10 @@ public class Account {
                 while (resultSet.next()) {
                     balance = resultSet.getBigDecimal("Balance");
                 }
+
         }
         return balance;
     }
-
-
     public Integer inputAccNumber(){
         System.out.println("Введите номер карты");
         accountNumber = scanner.nextInt();
@@ -132,6 +127,16 @@ public class Account {
         System.out.println("Введите пароль карты");
         pinCode = scanner.nextInt();
         return pinCode;
+    }
+    public static ArrayList<Integer> test(){
+        System.out.println("Введите номер карты");
+       int x= scanner.nextInt();
+        System.out.println("Введите пароль карты");
+        int y = scanner.nextInt();
+        ArrayList<Integer> test1 = new ArrayList<>();
+        test1.add(x);
+        test1.add(y);
+        return test1;
     }
 
 

@@ -2,6 +2,7 @@ import acc.Account;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static acc.Account.*;
@@ -12,37 +13,25 @@ public class BankService {
     Scanner scanner = new Scanner(System.in);
     int accountNumber;
     int pin;
-
     public BankService() {
     }
-
-
     public void firstService() throws SQLException {
-
         System.out.println();
-
-
-
         System.out.println("Hello CLEVER-BANK");
         System.out.println("-----------------");
-
-
         boolean flag = true;
         while (flag) {
-            accountNumber = account.inputAccNumber();
-
-            pin = account.inputPinCode();
-            Account acc = account.accInfoByNumberAndPin(accountNumber, pin);
-            int accNumber = acc.getAccountNumber();
-            int pin = acc.getPinCode();
+            ArrayList<Integer> pinNumberInfo= test();
+            accountNumber = pinNumberInfo.get(0);
+             pin = pinNumberInfo.get(1);
+            Account acc = account.accInfoByNumberAndPin(accountNumber,pin);
             BigDecimal balance = acc.getBalance();
             String banikId = acc.getBankName();
-            System.out.println(account.accountsBalance(accNumber, pin));
-            if (accNumber != 0 && pin != 0) {
+//            System.out.println(account.accountsBalance(accNumber, pin));
+            if (accountNumber != 0 && pin != 0) {
                 int numberOperation = numberOperation();
-
                 if (numberOperation == 1) {
-                    System.out.println(acc.accountsBalance(accNumber, pin));
+                    System.out.println(acc.accountsBalance(accountNumber, pin));
                     flag = true;
                 } else if (numberOperation == 2) {
                     System.out.println("Введите сумму пополнения счета");
@@ -52,9 +41,9 @@ public class BankService {
                 } else if (numberOperation == 3) {
                     System.out.println("Введите сумму снятия со счета");
                     BigDecimal sumByDebit = scanner.nextBigDecimal();
-                    int equal = sumByDebit.compareTo(acc.accountsBalance(accNumber, pin));
-                    BigDecimal subtract = acc.accountsBalance(accNumber, pin).subtract(sumByDebit);
-                    System.out.println(subtract + " " + acc.accountsBalance(accNumber, pin));
+                    int equal = sumByDebit.compareTo(acc.accountsBalance(accountNumber, pin));
+                    BigDecimal subtract = acc.accountsBalance(accountNumber, pin).subtract(sumByDebit);
+                    System.out.println(subtract + " " + acc.accountsBalance(accountNumber, pin));
                     if (equal == -1 || equal == 0) {
                         creditOperation(subtract, getIdAccounts());
                         System.out.println("Операция проведена успешно");
@@ -70,13 +59,11 @@ public class BankService {
             }
         }
     }
-
     private void creditOperation(BigDecimal balanceAfterCredit, Integer getIdAccount) throws SQLException {
         String sqlAccDebitByAccAndPin = "UPDATE accounts SET Balance = " + balanceAfterCredit + " WHERE IdAccount = " + getIdAccount;
         PreparedStatement preparedStatement = conn.prepareStatement(sqlAccDebitByAccAndPin);
         preparedStatement.executeUpdate();
     }
-
     public Integer getIdAccounts() {
         Integer idAcc = null;
         String getIdAccount = "SELECT IdAccount FROM accounts where AccountNumber = " + accountNumber + " AND PinCode = " + pin;
@@ -91,12 +78,9 @@ public class BankService {
         }
         return idAcc;
     }
-
     private void debit(BigDecimal sumByDebit) throws SQLException {
         BigDecimal balance = account.accountsBalance(accountNumber, pin);
-        System.out.println(balance);
         BigDecimal newBalance = balance.add(sumByDebit);
-        System.out.println(newBalance);
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
             Integer getIdAccount = getIdAccounts();
             String sqlAccDebitByAccAndPin = "UPDATE accounts SET Balance = " + newBalance + " WHERE IdAccount = " + getIdAccount;
@@ -106,8 +90,6 @@ public class BankService {
             throw new RuntimeException(e);
         }
     }
-
-
     public Boolean searchAccByNumberAndPinCard() {
         try {
             String sqlAccByPin = "SELECT * FROM accounts where AccountNumber = " + accountNumber + " AND PinCode = " + pin;
@@ -127,8 +109,6 @@ public class BankService {
         }
         return false;
     }
-
-
     public Integer numberOperation() {
         System.out.println("Выберете номер операции:");
         System.out.println("1) Просмотр баланса");
@@ -139,6 +119,4 @@ public class BankService {
         int numberOperation = scanner.nextInt();
         return numberOperation;
     }
-
-
 }
