@@ -39,22 +39,22 @@ public class Main {
         BigDecimal bigDecimal2 = new BigDecimal(200);
         System.out.println(bigDecimal1.compareTo(bigDecimal2));
 
-        BankService bankService = new BankService();
-
-
-
-
-
+//        Client bankService = new Client();
 //
-//           bankService.searchAccByNumberAndPinCard();
-
-
-
-
-
-
-
-        bankService.firstService();
+//
+//
+//
+//
+////
+////           bankService.searchAccByNumberAndPinCard();
+//
+//
+//
+//
+//
+//
+//
+//        bankService.firstService();
 //        System.out.println(bankService.getIdAccounts());
 
 

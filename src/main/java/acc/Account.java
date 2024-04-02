@@ -1,14 +1,14 @@
 package acc;
 
-import impl.AccountRepo;
-import impl.AccountRepoImpl;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 @Setter
@@ -55,16 +55,12 @@ public class Account {
             throw new RuntimeException(e);
         }
     }
-
     public static void createTableAccounts() throws SQLException {
         Statement statement = conn.createStatement();
         // создание таблицы
         statement.executeUpdate(sqlCreateTableAccounts);
         System.out.println("Database has been created!");
-
     }
-
-
     public static void insertAccountsTable() throws SQLException {
         System.out.print("Input AccountNumber: ");
         int numberAccount = scanner.nextInt();
@@ -82,8 +78,6 @@ public class Account {
         int rows = preparedStatement.executeUpdate();
         System.out.printf("%d rows added", rows);
     }
-
-
     public Account accInfoByNumberAndPin(Integer accountNumber,Integer pinCode) throws SQLException {
         int acc = 0;
         int pin = 0;
@@ -114,21 +108,10 @@ public class Account {
                 while (resultSet.next()) {
                     balance = resultSet.getBigDecimal("Balance");
                 }
-
         }
         return balance;
     }
-    public Integer inputAccNumber(){
-        System.out.println("Введите номер карты");
-        accountNumber = scanner.nextInt();
-        return accountNumber;
-    }
-    public Integer inputPinCode(){
-        System.out.println("Введите пароль карты");
-        pinCode = scanner.nextInt();
-        return pinCode;
-    }
-    public static ArrayList<Integer> test(){
+    public  ArrayList<Integer> inputAccAndPin(){
         System.out.println("Введите номер карты");
        int x= scanner.nextInt();
         System.out.println("Введите пароль карты");
@@ -138,7 +121,4 @@ public class Account {
         test1.add(y);
         return test1;
     }
-
-
-
 }
