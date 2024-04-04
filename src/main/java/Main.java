@@ -1,65 +1,66 @@
 import acc.Account;
-import acc.Bank;
 
-import java.io.BufferedReader;
-import java.io.Console;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.Scanner;
-
-import static acc.Account.scanner;
 
 public class Main {
 
+
     public static void main(String[] args) throws IOException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException, SQLException {
-        //create users table
-//        User.createTableUsers();
 
 
-        // create bank
-//        Bank.createTableBank();
+//        MyThread1 thread1 = new MyThread1();
+//        MyThread1 thread2 = new MyThread1();
+//        MyThread1 thread3 = new MyThread1();
+//        MyThread1 thread4 = new MyThread1();
+//
+//        thread1.start();
+//        thread2.start();
+//        thread3.start();
+//        thread4.start();
 
-//        Bank.insertTable();
-
-        //create accounts table
-//        Account.createTableAccounts();
+//        MyThread2 myThread1 = new MyThread2();
+//        MyThread2 myThread2 = new MyThread2();
+//        MyThread2 myThread3 = new MyThread2();
+//        MyThread2 myThread4 = new MyThread2();
 //
-//
-//        Account.insertAccountsTable();
-
-
-//        Transaction.createTableTransaction();
-//        Transaction.insertTransactionTable();
+//        myThread1.start();
+//        myThread2.start();
+//        myThread3.start();
+//        myThread4.start();
 
 
-        BigDecimal bigDecimal1 = new BigDecimal(100);
-        BigDecimal bigDecimal2 = new BigDecimal(200);
-        System.out.println(bigDecimal1.compareTo(bigDecimal2));
-
-//        Client bankService = new Client();
-//
-//
-//
-//
-//
-////
-////           bankService.searchAccByNumberAndPinCard();
-//
-//
-//
-//
-//
-//
-//
-//        bankService.firstService();
-//        System.out.println(bankService.getIdAccounts());
+        Client.clientService();
 
 
     }
 
+}
 
+class MyThread1 extends Thread {
+    @Override
+    public void run() {
+        Client account = new Client();
+        BigDecimal bigDecimal = null;
+        try {
+         account.creditOperation(BigDecimal.valueOf(200),1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
+    }
+}
+
+class MyThread2 extends Thread {
+    @Override
+    public void run() {
+        Account account = new Account();
+        try {
+            account.accountsBalance(12345678,1234);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -80,13 +80,11 @@ class Server {
                                 clientSocket.getInputStream()));
 
 
-
-
-                int i=-1;
-                while((i=in.read())!=-1){
-
-                    System.out.print((char)i);
-                }
+                String word = in.readLine(); // ждём пока клиент что-нибудь нам напишет
+                System.out.println(word);
+                // не долго думая отвечает клиенту
+                out.write("Привет, это Сервер! Подтверждаю, вы написали : " + word + "\n");
+                out.flush(); // выталкиваем все из буфера
 
             }
             catch (IOException e) {

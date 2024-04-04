@@ -22,14 +22,12 @@ public class Account {
     private Integer pinCode;
     private BigDecimal balance;
     private String bankName;
-//   private Currency currency;
 
     public static String url = "jdbc:mysql://localhost/bank?serverTimezone=Europe/Moscow&useSSL=false";
     public static String username = "leonid";
     public static String password = "1234";
     public static Scanner scanner = new Scanner(System.in);
-    public static ResultSet resultSet = null;
-    public static Object x;
+    public static Object driver;
     public static Connection conn;
 
     private static String sqlCreateTableAccounts = "CREATE TABLE accounts (IdAccount INT PRIMARY KEY AUTO_INCREMENT, AccountNumber INT,PinCode INT, Balance Decimal (4,2), BankId INT,FOREIGN KEY (BankId) REFERENCES Bank(IdBank))";
@@ -38,11 +36,12 @@ public class Account {
     static {
         try {
             conn = DriverManager.getConnection(url, username, password);
+            conn.setAutoCommit(true);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         try {
-            x = Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+            driver = Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
         } catch (InstantiationException e) {
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
@@ -86,7 +85,7 @@ public class Account {
         int bankId = 0;
          String sqlAccByPin = "SELECT * FROM accounts where AccountNumber = " + accountNumber + " AND PinCode = " + pinCode;
         PreparedStatement preparedStatement = conn.prepareStatement(sqlAccByPin);
-        resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             acc = resultSet.getInt("AccountNumber");
             pin = resultSet.getInt("PinCode");
@@ -96,19 +95,18 @@ public class Account {
         account.setAccountNumber(acc);
         account.setPinCode(pin);
         account.setBalance(balance);
+
+
         return account;
     }
     public BigDecimal accountsBalance(Integer accountNumber, Integer pinCode) throws SQLException {
-        BigDecimal balance = null;
-        if (balance == null) {
-            balance = balance.ZERO;
+
               String sqlBalanceByPinAndAcc = "SELECT balance FROM accounts where AccountNumber=" + accountNumber + " AND PinCode = " + pinCode;
                 PreparedStatement preparedStatement = conn.prepareStatement(sqlBalanceByPinAndAcc);
-                resultSet = preparedStatement.executeQuery();
+               ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
-                    balance = resultSet.getBigDecimal("Balance");
+                 balance = resultSet.getBigDecimal("Balance");
                 }
-        }
         return balance;
     }
     public  ArrayList<Integer> inputAccAndPin(){
