@@ -1,3 +1,6 @@
+import static acc.Account.createTableAccounts;
+import static acc.Bank.createTableBank;
+
 import acc.Account;
 
 import java.io.IOException;
@@ -9,7 +12,8 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException, SQLException {
-
+createTableBank();
+        createTableAccounts();
 
 //        MyThread1 thread1 = new MyThread1();
 //        MyThread1 thread2 = new MyThread1();

@@ -24,8 +24,10 @@ public class Account {
     private String bankName;
 
     public static String url = "jdbc:mysql://localhost/bank?serverTimezone=Europe/Moscow&useSSL=false";
-    public static String username = "leonid";
-    public static String password = "1234";
+//    public static String username = "leonid";
+//    public static String password = "1234";
+    public static String username = "root";
+    public static String password = "root";
     public static Scanner scanner = new Scanner(System.in);
     public static Object driver;
     public static Connection conn;

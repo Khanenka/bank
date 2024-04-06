@@ -24,8 +24,8 @@ public class Bank {
 
 
     static String url = "jdbc:mysql://localhost/bank?serverTimezone=Europe/Moscow&useSSL=false";
-    static String username = "leonid";
-    static String password = "1234";
+    static String username = "root";
+    static String password = "root";
     static Scanner scanner = new Scanner(System.in);
 
 
