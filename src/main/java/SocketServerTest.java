@@ -84,7 +84,7 @@ public class SocketServerTest extends Thread
                 while(true) {
                     // ожидание подключения
                     Socket socket = srvSocket.accept();
-                    System.err.println("Client accepted");
+                    System.err.println("test.Client accepted");
                     // Стартуем обработку клиента
                     // в отдельном потоке
                     new SocketServerTest().setSocket(i++, socket);

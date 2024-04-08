@@ -1,11 +1,18 @@
 package test;
 
 import acc.Account;
+import org.w3c.dom.ls.LSOutput;
+
 import java.io.*;
+import java.math.BigDecimal;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.sql.Savepoint;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static acc.Account.scanner;
+import static test.Client.accountNumber;
 
 public class ClientSocket {
 
@@ -19,43 +26,49 @@ public class ClientSocket {
 
         InputStream inFromServer = clientSocket.getInputStream();
         DataInputStream in = new DataInputStream(inFromServer);
-        Account account=new Account();
+        Account account = new Account();
+        Client client = new Client();
+
+
         Integer login = null;
         Integer password = null;
         while (true) {
 
-            ArrayList<Integer> arrayList = inputLoginAndPAssword();
-            for (int i = 0; i <arrayList.size() ; i++) {
+            ArrayList<Integer> arrayList = account.inputAccAndPin();
+            for (int i = 0; i < arrayList.size(); i++) {
 //                System.out.println(arrayList.get(i));
-                login= arrayList.get(0);
+                login = arrayList.get(0);
                 password = arrayList.get(1);
                 out.writeInt(arrayList.get(i));
             }
 
-            System.out.println(in.readUTF());
+//            System.out.println(in.readUTF());
 
-               ;
-//            out.writeUTF(inputLoginAndPAssword().get(1));
 
+            int numberOperation = client.numberOperation();
+            out.writeInt(numberOperation);
+            if (numberOperation == 1) {
+
+
+                System.out.println(in.readUTF());
+
+            } else if (numberOperation == 2) {
+
+                System.out.println("Введите сумму пополнения счета");
+                Scanner scanner = new Scanner(System.in);
+                BigDecimal sumByDebit = scanner.nextBigDecimal();
+                out.writeUTF(String.valueOf(sumByDebit));
+            } else if (numberOperation == 3) {
+                System.out.println("Введите сумму снятия со счета");
+                BigDecimal sumByCredit = scanner.nextBigDecimal();
+                out.writeUTF(String.valueOf(sumByCredit));
+                System.out.println(in.readUTF());
+
+            }
 
 
         }
 
 
-
-
-    }
-
-    public static ArrayList<Integer> inputLoginAndPAssword(){
-        ArrayList<Integer> arrayList= new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите логин:");
-        Integer login = scanner.nextInt();
-        System.out.println("Введите пароль:");
-        Integer pass = scanner.nextInt();
-        arrayList.add(login);
-        arrayList.add(pass);
-
-        return arrayList;
     }
 }

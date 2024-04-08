@@ -11,7 +11,7 @@ public class SocketClientTest
         Socket socket = null;
         try{
             try {
-                System.out.println("Welcome to Client side\n" +
+                System.out.println("Welcome to test.Client side\n" +
                         "Connecting to the server\n\t" +
                         "(IP address " + localhost +
                         ", port " + serverPort + ")");

@@ -24,10 +24,10 @@ public class Account {
     private String bankName;
 
     public static String url = "jdbc:mysql://localhost/bank?serverTimezone=Europe/Moscow&useSSL=false";
-//    public static String username = "leonid";
-//    public static String password = "1234";
-    public static String username = "root";
-    public static String password = "root";
+    public static String username = "leonid";
+    public static String password = "1234";
+//    public static String username = "root";
+//    public static String password = "root";
     public static Scanner scanner = new Scanner(System.in);
     public static Object driver;
     public static Connection conn;
@@ -113,9 +113,9 @@ public class Account {
     }
     public  ArrayList<Integer> inputAccAndPin(){
         System.out.println("Введите номер карты");
-       int x= scanner.nextInt();
+       Integer x= scanner.nextInt();
         System.out.println("Введите пароль карты");
-        int y = scanner.nextInt();
+        Integer y = scanner.nextInt();
         ArrayList<Integer> test1 = new ArrayList<>();
         test1.add(x);
         test1.add(y);

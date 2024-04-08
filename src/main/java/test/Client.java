@@ -1,3 +1,5 @@
+package test;
+
 import acc.Account;
 import lombok.Synchronized;
 
@@ -10,7 +12,7 @@ import java.util.*;
 import static acc.Account.*;
 
 
-// Client class
+// test.Client class
 
 public class Client {
 
@@ -20,7 +22,7 @@ public class Client {
     static Integer pin = account.getPinCode();
 
     // driver code
-    @Synchronized
+
     public static void clientService() {
 
         Client client = new Client();
@@ -138,12 +140,12 @@ public class Client {
         return idAcc;
     }
 
-    public void debit(BigDecimal sumByDebit) throws SQLException {
-        BigDecimal balance = account.accountsBalance(accountNumber, pin);
+    public void debit(BigDecimal sumByDebit,Integer login,Integer pin) throws SQLException {
+        BigDecimal balance = account.accountsBalance(login, pin);
         BigDecimal newBalance = balance.add(sumByDebit);
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
-            Integer getIdAccount = getIdAccounts(accountNumber, pin);
-            String sqlAccDebitByAccAndPin = "UPDATE accounts SET Balance = " + newBalance + " WHERE IdAccount = " + getIdAccounts(accountNumber, pin);
+            Integer getIdAccount = getIdAccounts(login, pin);
+            String sqlAccDebitByAccAndPin = "UPDATE accounts SET Balance = " + newBalance + " WHERE IdAccount = " + getIdAccounts(login, pin);
             PreparedStatement preparedStatement = conn.prepareStatement(sqlAccDebitByAccAndPin);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
