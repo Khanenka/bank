@@ -1,24 +1,17 @@
-import static acc.Account.createTableAccounts;
-import static acc.Bank.createTableBank;
-
-import acc.Account;
 import test.ClientSocket;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 
-public class Main extends  Thread {
+public class Main  {
 
-    @Override
-    public void run() {
 
-            ClientSocket clientSocket = new ClientSocket();
-
-    }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException, SQLException {
+
+
+
 
 
 

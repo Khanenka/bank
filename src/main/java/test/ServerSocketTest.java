@@ -11,24 +11,24 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
 
-public class ServerSocketTest  extends Thread {
+public class ServerSocketTest extends Thread {
     Socket serverClient;
     int clientNo;
 
 
     public static void main(String[] args) throws IOException, SQLException {
-        try{
-            ServerSocket server=new ServerSocket(4444);
-            int counter=0;
+        try {
+            ServerSocket server = new ServerSocket(4444);
+            int counter = 0;
             System.out.println("Server Started ....");
-            while(true){
+            while (true) {
                 counter++;
-                Socket serverClient=server.accept();  //server accept the client connection request
+                Socket serverClient = server.accept();  //server accept the client connection request
                 System.out.println(" >> " + "Client No:" + counter + " started!");
-                ServerSocketTest sct = new ServerSocketTest(serverClient,counter); //send  the request to a separate thread
+                ServerSocketTest sct = new ServerSocketTest(serverClient, counter); //send  the request to a separate thread
                 sct.start();
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -79,7 +79,7 @@ public class ServerSocketTest  extends Thread {
 
 
                     if (equal == -1 || equal == 0) {
-                        System.out.println(login);
+
                         client.creditOperation(subtract, client.getIdAccounts(login, password));
                         out.writeUTF("Операция проведена успешно");
                         System.out.println("Операция проведена успешно");
@@ -87,6 +87,22 @@ public class ServerSocketTest  extends Thread {
                         out.writeUTF("Недостаточно средств");
                         System.out.println("Недостаточно средств");
                     }
+                } else if (numberOperation == 4) {
+
+                    Integer numberCardByCredit = in.readInt();
+                    BigDecimal sumByDedit = BigDecimal.valueOf(Long.parseLong(in.readUTF()));
+
+                    int equal = sumByDedit.compareTo(account.accountsBalance(login, password));//срваниваем суммус нятия с балансом на счете
+
+                   if (equal == -1 || equal == 0) {
+                        client.moneyTransaction(login, password, numberCardByCredit, sumByDedit);
+                        out.writeUTF("Операция проведена успешно");
+                        System.out.println("Операция проведена успешно");
+                    } else {
+
+                       out.writeUTF("Недостаточно средств");
+                       System.out.println("Недостаточно средств");
+                   }
                 }
 
             }

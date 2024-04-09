@@ -111,12 +111,51 @@ public class Account {
                 }
         return balance;
     }
+
+    public BigDecimal accountsBalanceByAccountNumber(Integer accountNumber) throws SQLException {
+
+        String sqlBalanceByPinAndAcc = "SELECT balance FROM accounts where AccountNumber=" + accountNumber;
+        PreparedStatement preparedStatement = conn.prepareStatement(sqlBalanceByPinAndAcc);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            balance = resultSet.getBigDecimal("Balance");
+        }
+        return balance;
+    }
+
     public  ArrayList<Integer> inputAccAndPin(){
-        System.out.println("Введите номер карты");
-       Integer x= scanner.nextInt();
-        System.out.println("Введите пароль карты");
-        Integer y = scanner.nextInt();
         ArrayList<Integer> test1 = new ArrayList<>();
+        Integer x;
+        Integer y;
+
+
+        do {
+            System.out.println("Введите номер карты");
+            while (!scanner.hasNextInt()) {
+                System.out.println("That's not a number!");
+                scanner.next(); // this is important!
+            }
+            x = scanner.nextInt();
+        } while (x <= 0);
+        System.out.println(x);
+
+        do {
+            System.out.println("Введите пароль карты");
+            while (!scanner.hasNextInt()) {
+                System.out.println("That's not a number!");
+                scanner.next(); // this is important!
+            }
+            y = scanner.nextInt();
+        } while (y <= 0);
+        System.out.println(y);
+
+
+
+
+
+
+
+
         test1.add(x);
         test1.add(y);
         return test1;

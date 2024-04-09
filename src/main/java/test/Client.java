@@ -116,8 +116,7 @@ public class Client {
         String sqlAccDebitByAccAndPin = "UPDATE accounts SET Balance = " + balanceAfterCredit + " WHERE IdAccount = " + getIdAccount;
         PreparedStatement preparedStatement = conn.prepareStatement(sqlAccDebitByAccAndPin);
 
-       preparedStatement.executeUpdate();
-
+        preparedStatement.executeUpdate();
 
 
     }
@@ -140,7 +139,7 @@ public class Client {
         return idAcc;
     }
 
-    public void debit(BigDecimal sumByDebit,Integer login,Integer pin) throws SQLException {
+    public void debit(BigDecimal sumByDebit, Integer login, Integer pin) throws SQLException {
         BigDecimal balance = account.accountsBalance(login, pin);
         BigDecimal newBalance = balance.add(sumByDebit);
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
@@ -151,6 +150,33 @@ public class Client {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    public void moneyTransaction(Integer loginOut, Integer pin, Integer loginIn, BigDecimal sumTransaction) throws SQLException {
+        BigDecimal balanceOut = account.accountsBalance(loginOut, pin);
+        BigDecimal balanceIn = account.accountsBalanceByAccountNumber(loginIn);
+
+        String sqlCreditOperation = "UPDATE accounts SET balance = " + balanceOut.subtract(sumTransaction) + "WHERE IdAccount = " + getIdAccounts(loginOut, pin);
+        String sqlDebitOperation = "UPDATE accounts SET balance = " + balanceIn.add(sumTransaction) + "WHERE AccountNumber = " + loginIn;
+
+        int equal = sumTransaction.compareTo(account.accountsBalance(loginOut, pin));
+
+
+        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+            if (equal == -1 || equal == 0) {
+                PreparedStatement preparedStatement1 = conn.prepareStatement(sqlCreditOperation);
+                PreparedStatement preparedStatement2 = conn.prepareStatement(sqlDebitOperation);
+                preparedStatement1.executeUpdate();
+                preparedStatement2.executeUpdate();
+            } else {
+                System.out.println("Недостаточно средств");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     public Boolean searchAccByNumberAndPinCard() {
@@ -183,7 +209,6 @@ public class Client {
         int numberOperation = scanner.nextInt();
         return numberOperation;
     }
-
 
 
 }
