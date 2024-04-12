@@ -1,15 +1,9 @@
-import org.junit.experimental.ParallelComputer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
-import org.junit.runner.JUnitCore;
-import test.Client;
-import test.ClientSocket;
+import socket.ClientSocket;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Execution(ExecutionMode.CONCURRENT)
 public class FirstParallelUnitTest extends Thread {

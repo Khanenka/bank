@@ -1,6 +1,6 @@
-package acc;
-
-public enum Currency {
-    USD,EUR,BYN
-
-}
+//package acc;
+//
+//public enum Currency {
+//    USD,EUR,BYN
+//
+//}

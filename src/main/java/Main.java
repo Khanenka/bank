@@ -1,4 +1,4 @@
-import test.ClientSocket;
+
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -11,8 +11,9 @@ public class Main  {
     public static void main(String[] args) throws IOException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException, SQLException {
 
 
-
-
+//        Account account=new Account();
+//        Account account1 = account.accInfoByNumberAndPin(12345678, 1234);
+//        System.out.println(account1);
 
 
     }
