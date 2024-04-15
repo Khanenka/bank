@@ -1,12 +1,13 @@
-
+import test.utility.DBConnection;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 public class Main  {
 
-
+    Connection connection= DBConnection.test();
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException, SQLException {
 
@@ -15,6 +16,18 @@ public class Main  {
 //        Account account1 = account.accInfoByNumberAndPin(12345678, 1234);
 //        System.out.println(account1);
 
+
+
+
+//Main main=new Main();
+//main.test();
+//
+//
+//    }
+//    AccountRepoImpl accountRepo=new AccountRepoImpl();
+//    public void test() throws SQLException {
+//
+//        System.out.println(  accountRepo.accInfoByNumberAndPin(1234,1111));
 
     }
 }
