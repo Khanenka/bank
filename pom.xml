@@ -6,7 +6,11 @@
   <version>1.0-SNAPSHOT</version>
   <name>Archetype - bank</name>
   <url>http://maven.apache.org</url>
-  <dependencies>
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+    <dependencies>
     <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -33,6 +37,19 @@
       <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.liquibase/liquibase-core -->
+    <dependency>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-core</artifactId>
+      <version>4.27.0</version>
+    </dependency>
+
+      <dependency>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-maven-plugin</artifactId>
+        <version>4.27.0</version>
+      </dependency>
+
 
 
 
@@ -40,19 +57,33 @@
   </dependencies>
   <build>
     <plugins>
+
       <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.1.2</version>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-maven-plugin</artifactId>
+        <version>4.27.0</version>
         <configuration>
-          <properties>
-            <configurationParameters>
-              junit.jupiter.execution.parallel.enabled = true
-              junit.jupiter.execution.parallel.mode.default = same_thread
-              junit.jupiter.execution.parallel.mode.classes.default = same_thread
-            </configurationParameters>
-          </properties>
+          <propertyFile>src/main/resources/liquibase.properties</propertyFile>
+          <outputChangeLogFile>src/main/resources/db/updateDB.xml</outputChangeLogFile>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+          </dependency>
+        </dependencies>
       </plugin>
+
+
+
+
+
+
+
+
+
+
     </plugins>
   </build>
 </project>
