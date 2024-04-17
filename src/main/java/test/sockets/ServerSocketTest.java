@@ -16,6 +16,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class ServerSocketTest extends Thread {
@@ -26,7 +29,10 @@ public class ServerSocketTest extends Thread {
     TransactionRepo transactionRepo=new TransactionRepoImpl();
     Date date = new Date();
     CRUDAccount crudAccount=new CRUDAccount();
+    SimpleDateFormat ft =
+            new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 
+    Timestamp timestamp1=new Timestamp(date.getTime());
 
 
 
@@ -84,14 +90,14 @@ public class ServerSocketTest extends Thread {
                     System.out.println(balance);
                     out.writeUTF(String.valueOf(balance));
 
-                    transactionRepo.transactionNameAndDateSave(transactionId,crudAccount.getIdAccounts(login,password),String.valueOf(date.getTime()));
+                    transactionRepo.transactionNameAndDateSave(transactionId,crudAccount.getIdAccounts(login,password),timestamp1);
 
                 } else if (numberOperation == 2) {
                     BigDecimal sumByDebit = BigDecimal.valueOf(Long.parseLong(in.readUTF()));
                     System.out.println(sumByDebit);
 
                     withdraw.debit(sumByDebit,account);
-                    transactionRepo.transactionNameAndDateSave(transactionId,crudAccount.getIdAccounts(login,password),String.valueOf(date.getTime()));
+                    transactionRepo.transactionNameAndDateSave(transactionId,crudAccount.getIdAccounts(login,password), timestamp1);
                     System.out.println("Операция проведена успешно");
 
                 } else if (numberOperation == 3) {
@@ -104,7 +110,7 @@ public class ServerSocketTest extends Thread {
                     if (equal == -1 || equal == 0) {
 
                         withdraw.creditOperation(subtract, account);
-                        transactionRepo.transactionNameAndDateSave(transactionId,crudAccount.getIdAccounts(login,password),String.valueOf(date.getTime()));
+                        transactionRepo.transactionNameAndDateSave(transactionId,crudAccount.getIdAccounts(login,password),timestamp1);
                         out.writeUTF("Операция проведена успешно");
                         System.out.println("Операция проведена успешно");
                     } else {
@@ -120,7 +126,7 @@ public class ServerSocketTest extends Thread {
 
                    if (equal == -1 || equal == 0) {
                         withdraw.moneyTransaction(account, numberCardByCredit, sumByDedit);
-                       transactionRepo.transactionNameAndDateSave(transactionId,crudAccount.getIdAccounts(login,password),String.valueOf(date.getTime()));
+                       transactionRepo.transactionNameAndDateSave(transactionId,crudAccount.getIdAccounts(login,password),timestamp1);
                         out.writeUTF("Операция проведена успешно");
                         System.out.println("Операция проведена успешно");
                     } else {

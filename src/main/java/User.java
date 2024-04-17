@@ -13,7 +13,7 @@ public class User {
     private int idUser;
     private String userFirstName;
     private String userLastName;
-    private Date createUserDate;
+    private Date dateOfBirdth;
 
 public static void createTableUsers(){
     try{

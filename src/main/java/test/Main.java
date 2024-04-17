@@ -7,6 +7,8 @@ import test.services.BankService;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static java.sql.Date.valueOf;
 
@@ -14,10 +16,13 @@ public class Main {
 
 
 
+    SimpleDateFormat ft =
+            new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
 
     public static void main(String[] args) throws SQLException {
-
-
+        Date date = new Date();
+Main main=new Main();
+        System.out.println(main.ft.format(date));
 
 
 //        account.setNumberAccount(1111);

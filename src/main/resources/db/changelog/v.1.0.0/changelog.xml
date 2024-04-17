@@ -7,5 +7,8 @@
 
     <include file="/01-changeset-bank-table.xml" relativeToChangelogFile="true"/>
     <include file="/01-changeset-accounts-table.xml" relativeToChangelogFile="true"/>
+    <include file="/01-changeset-user-table.xml" relativeToChangelogFile="true"/>
+    <include file="/01-changeset-transaction-table.xml" relativeToChangelogFile="true"/>
+    <include file="/01-changeset-transaction-account-table.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
